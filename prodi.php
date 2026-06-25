@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 Program Studi Unggulan | FH UII</title>
+    <link rel="icon" type="image/img" href="logo.png.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. BRANDING UI TOKENS (Warna Resmi UII) */
+        :root {
+            --uii-blue: #0B3C82;       /* Navy Khas UII */
+            --uii-blue-dark: #062047;  /* Deep Luxury Navy */
+            --uii-gold: #FFD100;       /* Emas Agung UII */
+            --uii-gold-dim: #cca800;   /* Emas untuk Hover */
+            --bg-light: #F1F5F9;       /* Abu-abu terang premium */
+            --text-dark: #0F172A;      /* Slate-900 */
+            --text-muted: #64748B;     /* Slate-500 */
+            --card-bg: #FFFFFF;
+            --shadow-sm: 0 4px 10px -1px rgba(11, 60, 130, 0.04);
+            --shadow-lux: 0 25px 50px -12px rgba(11, 60, 130, 0.1);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. RESET & BASE STYLES */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 3. HERO LAYOUT */
+        .article-header {
+            background: linear-gradient(135deg, var(--uii-blue-dark) 0%, var(--uii-blue) 100%);
+            color: white;
+            padding: 100px 24px 100px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 209, 0, 0.12) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .article-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            line-height: 1.2;
+        }
+        .article-subtitle {
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* 4. MAIN CONTENT CONTAINER */
+        .main-container {
+            max-width: 1100px;
+            margin: -40px auto 80px auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* FILTER INTERACTION TABS */
+        .filter-wrapper {
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lux);
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .filter-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 24px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--uii-blue);
+            color: white;
+        }
+
+        /* ARTICLE GRID LAYOUT */
+        .prodi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px; /* Jarak antara grid prodi dan tombol kembali */
+        }
+
+        /* LUXURY CARD STYLES */
+        .prodi-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(11, 60, 130, 0.02);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .prodi-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--uii-gold);
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .prodi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lux);
+            border-color: rgba(11, 60, 130, 0.08);
+        }
+        .prodi-card:hover::after {
+            opacity: 1;
+        }
+        .prodi-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--uii-blue);
+            background: rgba(11, 60, 130, 0.06);
+            padding: 4px 12px;
+            border-radius: 50px;
+            align-self: flex-start;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .prodi-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--uii-blue-dark);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        .prodi-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+        .read-more {
+            color: var(--uii-blue);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .read-more:hover {
+            color: var(--uii-gold-dim);
+            gap: 12px;
+        }
+
+        /* TOMBOL KEMBALI KE PROFIL (STYLE MEWAH) */
+        .back-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 32px;
+            background-color: var(--card-bg);
+            color: var(--uii-blue);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            border: 2px solid rgba(11, 60, 130, 0.1);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .btn-back:hover {
+            background-color: var(--uii-blue);
+            color: white;
+            border-color: var(--uii-blue);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lux);
+        }
+
+        /* 5. FOOTER STYLES */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(11, 60, 130, 0.05);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .article-title { font-size: 2rem; }
+            .prodi-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="article-header">
+        <h1 class="article-title">Menjelajahi 6 Program Studi Unggulan di Fakultas Hukum UII</h1>
+        <p class="article-subtitle">Melahirkan profesional hukum masa depan yang berintegritas dan berskala global.</p>
+    </header>
+
+    <main class="main-container">
+        <div class="filter-wrapper">
+            <button class="filter-btn active" onclick="filterProdi('all', this)">Semua Program</button>
+            <button class="filter-btn" onclick="filterProdi('reguler', this)">Reguler</button>
+            <button class="filter-btn" onclick="filterProdi('internasional', this)">Internasional</button>
+            <button class="filter-btn" onclick="filterProdi('pascasarjana', this)">Pascasarjana</button>
+        </div>
+
+        <div class="prodi-grid" id="prodiGridContainer"></div>
+
+        <div class="back-container">
+            <a href="beranda.php" class="btn-back">
+                KEMBALI
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Universitas Islam Indonesia. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Array Data Objek 6 Program Studi
+        const dataProdi = [
+            {
+                id: 1,
+                nama: "S1 Hukum Program Reguler",
+                kategori: "reguler",
+                tag: "Sarjana (S1)",
+                deskripsi: "Program reguler berakreditasi UNGGUL yang fokus melahirkan yuris profesional terkemuka berlandaskan nilai keislaman universal."
+            },
+            {
+                id: 2,
+                nama: "S1 Hukum International Program",
+                kategori: "internasional",
+                tag: "International (S1)",
+                deskripsi: "Kurikulum global penuh menggunakan bahasa pengantar Inggris, mempersiapkan lulusan bersaing di ranah hukum internasional."
+            },
+            {
+                id: 3,
+                nama: "Hukum Bisnis Komparatif",
+                kategori: "internasional",
+                tag: "Konsentrasi IP",
+                deskripsi: "Kombinasi analisis hukum korporasi modern dengan studi perbandingan hukum antar yurisdiksi lintas negara."
+            },
+            {
+                id: 4,
+                nama: "Magister Hukum (S2)",
+                kategori: "pascasarjana",
+                tag: "Pascasarjana (S2)",
+                deskripsi: "Pendalaman teori hukum komprehensif guna menghasilkan akademisi dan praktisi tingkat lanjut yang inovatif."
+            },
+            {
+                id: 5,
+                nama: "Magister Kenotariatan (M.Kn)",
+                kategori: "pascasarjana",
+                tag: "Profesional (S2)",
+                deskripsi: "Pendidikan profesi luhur yang spesifik menghasilkan notaris dan PPAT yang cakap, legal, dan beretika tinggi."
+            },
+            {
+                id: 6,
+                nama: "Doktor Ilmu Hukum (S3)",
+                kategori: "pascasarjana",
+                tag: "Doktoral (S3)",
+                deskripsi: "Puncak pendidikan akademik hukum yang menuntut riset orisinal untuk kontribusi nyata perkembangan ilmu hukum nasional."
+            }
+        ];
+
+        const container = document.getElementById('prodiGridContainer');
+
+        function renderProdi(cards) {
+            container.innerHTML = "";
+            cards.forEach(prodi => {
+                const cardElement = document.createElement('article');
+                cardElement.className = 'prodi-card';
+                cardElement.innerHTML = `
+                    <div>
+                        <div class="prodi-tag">${prodi.tag}</div>
+                        <h3 class="prodi-name">${prodi.nama}</h3>
+                        <p class="prodi-desc">${prodi.deskripsi}</p>
+                    </div>
+                    <a href="#" class="read-more">Pelajari Selengkapnya <span>➔</span></a>
+                `;
+                container.appendChild(cardElement);
+            });
+        }
+
+        function filterProdi(kategori, button) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            if (kategori === 'all') {
+                renderProdi(dataProdi);
+            } else {
+                const filtered = dataProdi.filter(p => p.kategori === kategori);
+                renderProdi(filtered);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderProdi(dataProdi);
+        });
+    </script>
+</body>
+</html>

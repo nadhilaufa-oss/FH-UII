@@ -1,0 +1,461 @@
+<?php
+/**
+ * Institutional Alumni Hub - Faculty of Law Architecture
+ * Designed for Premium University Portal Standards
+ */
+$pageTitle = "15K+ Alumni | FH UII";
+$university = "Universitas Islam Indonesia";
+$fakultas = "Fakultas Hukum";
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+    
+    <link rel="icon" type="image/img" href="logo.png.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. EXECUTIVE DESIGN SYSTEM (Warna Khas UII)
+           ========================================================================== */
+        :root {
+            --uii-navy-primary: #041530;  /* Biru Navy Resmi UII */
+            --uii-navy-dark: #020b1a;     /* Navy Pekat */
+            --uii-navy-card: #0b2247;     /* Latar Belakang Komponen Samping */
+            --uii-gold: #FFD100;          /* Emas Aksentuasi Mewah */
+            --uii-gold-hover: #E6BD00;
+            --text-main: #1a202c;         /* Warna Teks Artikel Gelap Pro */
+            --text-muted: #4a5568;
+            --bg-light: #f8fafc;          
+            --transition-premium: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF;    /* Latar Belakang Putih Bersih Kampus Resmi */
+            color: var(--text-main);
+            line-height: 1.85;
+            overflow-x: hidden;
+            padding-top: 95px;            /* Mencegah Konten Tertutup Navbar Fixed */
+        }
+
+        /* ==========================================================================
+           2. PROFESSIONAL STICKY NAVBAR (Bilah Menu Menyusut Otomatis)
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 24px 6%;          
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--uii-navy-primary);       
+            border-bottom: 3px solid var(--uii-gold);
+            transition: var(--transition-premium); 
+        }
+
+        /* Diaktifkan oleh JavaScript ketika halaman digulir kebawah */
+        nav.scrolled-active {
+            padding: 12px 6%;          
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            background: var(--uii-navy-dark);
+        }
+
+        .logo-cluster {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-graphic {
+            height: 48px;
+            width: auto;
+        }
+
+        .logo-typography {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-typography .faculty-label {
+            color: #ffffff;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 400;
+        }
+
+        .logo-typography .university-label {
+            color: var(--uii-gold);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-meta-tag {
+            font-size: 0.8rem;
+            color: #ffffff;
+            opacity: 0.7;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-meta-tag { display: none; }
+        }
+
+        /* ==========================================================================
+           3. MONUMENTAL HERO MASTERHEAD (Latar Belakang: gedung.png)
+           ========================================================================== */
+        .university-hero-banner {
+            position: relative;
+            height: 45vh;
+            min-height: 350px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            /* Integrasi gambar gedung.png dengan gradien linear korporat murni */
+            background: linear-gradient(to right, rgba(2, 11, 26, 1) 40%, rgba(4, 21, 48, 0.5) 100%), 
+                        url('gedung.png') center/cover no-repeat;
+            border-bottom: 4px solid var(--uii-gold);
+        }
+
+        .hero-core-wrapper {
+            max-width: 900px;
+        }
+
+        .hero-category-badge {
+            background-color: var(--uii-gold);
+            color: var(--uii-navy-dark);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .hero-main-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.4rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        /* ==========================================================================
+           4. ASYMMETRIC GRID LAYOUT ENGINE
+           ========================================================================== */
+        .portal-layout-grid {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 70px 4%;
+            display: grid;
+            grid-template-columns: 2.1fr 0.9fr;
+            gap: 60px;
+        }
+
+        @media (max-width: 1024px) {
+            .portal-layout-grid { grid-template-columns: 1fr; gap: 45px; }
+            .hero-main-title { font-size: 2.4rem; }
+            body { padding-top: 80px; }
+        }
+
+        /* ==========================================================================
+           5. EDITORIAL ARTICLE LABS (KOLOM KIRI)
+           ========================================================================== */
+        .editorial-container p {
+            font-size: 1.15rem;
+            color: var(--text-main); 
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        /* Dropcap Klasik Universitas */
+        .editorial-container p:first-of-type::first-letter {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            float: left;
+            margin-right: 14px;
+            line-height: 1;
+            color: var(--uii-navy-primary);
+        }
+
+        .editorial-subheading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            color: var(--uii-navy-primary);
+            margin: 45px 0 20px 0;
+            border-left: 5px solid var(--uii-gold);
+            padding-left: 18px;
+            letter-spacing: -0.5px;
+        }
+
+        .executive-quote {
+            background: var(--bg-light);
+            border-left: 4px solid var(--uii-navy-primary);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 16px 16px 0;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ==========================================================================
+           6. METRIC DASHBOARD & INTERACTION CONTROL (KOLOM KANAN)
+           ========================================================================== */
+        .sidebar-interface-node {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .premium-counter-card {
+            background-color: var(--uii-navy-card);
+            border-radius: 20px;
+            padding: 45px 35px;
+            border: 1px solid rgba(255, 209, 0, 0.15);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            transition: var(--transition-premium);
+            color: #ffffff;
+        }
+
+        .premium-counter-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--uii-gold);
+            box-shadow: 0 25px 50px rgba(255, 209, 0, 0.08);
+        }
+
+        .live-counter-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4.8rem;
+            font-weight: 900;
+            color: var(--uii-gold);
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .counter-label-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .counter-summary {
+            font-size: 0.95rem;
+            color: #cbd5e0;
+        }
+
+        .distribution-data-table {
+            background-color: var(--bg-light);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .table-header-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            color: var(--uii-navy-primary);
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+
+        .data-distribution-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 1rem;
+        }
+
+        .data-distribution-row:last-child { border: none; }
+        .data-name { color: var(--text-muted); font-weight: 500; }
+        .data-percentage { font-weight: 700; color: var(--uii-navy-primary); }
+
+        .btn-portal-redirect {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--uii-gold);
+            color: var(--uii-navy-primary);
+            padding: 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(254, 209, 0, 0.2);
+            transition: var(--transition-premium);
+        }
+
+        .btn-portal-redirect:hover {
+            background-color: var(--uii-gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(254, 209, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="mainInstitutionalNav">
+        <div class="logo-cluster">
+            <img src="logo.png.png" alt="Logo UII" class="logo-graphic" onerror="this.src='logo.png'">
+            <div class="logo-typography">
+                <span class="faculty-label">FACULTY OF LAW</span>
+                <span class="university-label">UNIVERSITAS ISLAM INDONESIA</span>
+            </div>
+        </div>
+        <div class="nav-meta-tag">Alumni Global Network</div>
+    </nav>
+
+    <header class="university-hero-banner">
+        <div class="hero-core-wrapper">
+            <span class="hero-category-badge">Kontribusi Jaringan Global</span>
+            <h1 class="hero-main-title">Mengukir Legacy Bangsa: Kiprah Kontributif 15 Ribu Alumni FH UII untuk Dunia</h1>
+        </div>
+    </header>
+
+    <div class="portal-layout-grid">
+        
+        <article class="editorial-container">
+            <p>Sejak didirikan pada masa awal fajar kemerdekaan, Fakultas Hukum Universitas Islam Indonesia (FH UII) secara konsisten mengemban amanah luhur melahirkan para pendekar hukum dan benteng keadilan bangsa. Hingga hari ini, ikatan makro keluarga besar alumni FH UII telah menembus milestones prestisius—lebih dari 15.000 lulusan tersebar luas mendedikasikan keahlian yuridis mereka.</p>
+            
+            <p>Angka 15.000 bukan sekadar akumulasi kuantitatif pada lembar statistik, melainkan simbol kekuatan intelektual, integritas moral, dan kontribusi nyata yang bersirkulasi di berbagai lini krusial. Karakter kepemimpinan yang berlandaskan nilai keislaman dan keindonesiaan universal menjadikan lulusan FH UII tangguh menghadapi dinamika hukum kontemporer.</p>
+
+            <h2 class="editorial-subheading">Aparatur Strategis dan Kepemimpinan Nasional</h2>
+            <p>Rekam jejak alumni FH UII telah teruji menempati pos-pos strategis yudikatif, legislatif, hingga jajaran menteri kabinet negara. Dari tampuk pimpinan tertinggi Mahkamah Agung, Hakim Konstitusi, praktisi korporat lintas negara, hingga pendiri firma hukum papan atas nasional lahir dari ekosistem akademik kampus pejuang ini.</p>
+            
+            <div class="executive-quote">
+                "Alumni Hukum UII dididik bukan sekadar menjadi juru taksir pasal normatif, melainkan penggerak moral keadilan yang bersuara lantang demi kemaslahatan masyarakat luas."
+            </div>
+
+            <h2 class="editorial-subheading">Sinergi Berkelanjutan Melalui IKA FH UII</h2>
+            <p>Kekuatan jejaring masif 15K alumni ini terwadahi secara terstruktur profesional melalui Ikatan Keluarga Alumni (IKA FH UII). Jaringan yang inklusif ini memberikan dampak sirkular berupa kemudahan program magang eksklusif mahasiswa aktif, penyerapan kerja *fresh graduates*, hingga sumbangsih naskah akademik undang-undang untuk reformasi tata negara.</p>
+        </article>
+
+        <aside class="sidebar-interface-node">
+            
+            <div class="premium-counter-card">
+                <div class="live-counter-number" id="historicalAlumniCounter" data-target="15000">0</div>
+                <div class="counter-label-text">Total Alumni Terdaftar</div>
+                <p class="counter-summary">Yuridis profesional berkebangsaan global yang aktif berkontribusi di berbagai belahan dunia.</p>
+            </div>
+
+            <div class="distribution-data-table">
+                <h3 class="table-header-title">💼 Klasterisasi Sektor Profesi</h3>
+                <div class="data-distribution-row">
+                    <span class="data-name">Yudikatif, Kejaksaan, & Aparatur Negara</span>
+                    <span class="data-percentage">34%</span>
+                </div>
+                <div class="data-distribution-row">
+                    <span class="data-name">Advokat & Konsultan Hukum Senior</span>
+                    <span class="data-percentage">28%</span>
+                </div>
+                <div class="data-distribution-row">
+                    <span class="data-name">Legal Corporate & Direksi BUMN/Swasta</span>
+                    <span class="data-percentage">21%</span>
+                </div>
+                <div class="data-distribution-row">
+                    <span class="data-name">Akademisi, Peneliti, & Sektor Publik</span>
+                    <span class="data-percentage">17%</span>
+                </div>
+            </div>
+
+            <a href="beranda.php" class="btn-portal-redirect">KEMBALI</a>
+        </aside>
+    </div>
+
+    <script>
+        /**
+         * Institutional Portal Engine Framework
+         */
+        const UniversityPortal = (() => {
+            const DOM = {
+                navbar: document.getElementById('mainInstitutionalNav'),
+                counter: document.getElementById('historicalAlumniCounter')
+            };
+
+            // Menyusutkan Navbar saat halaman discroll melewati batas atas
+            const initScrollEvent = () => {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        DOM.navbar.classList.add('scrolled-active');
+                    } else {
+                        DOM.navbar.classList.remove('scrolled-active');
+                    }
+                });
+            };
+
+            // Animasi Counter Angka Berjalan Halus (Interpolasi Waktu Linier)
+            const initCounterAnimation = () => {
+                const target = parseInt(DOM.counter.getAttribute('data-target'), 10);
+                const duration = 2000; // Durasi total animasi 2000ms (2 detik)
+                const startTime = performance.now();
+
+                const step = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const currentCount = Math.floor(progress * target);
+
+                    if (currentCount >= 1000) {
+                        DOM.counter.innerText = (currentCount / 1000).toFixed(0) + "K+";
+                    } else {
+                        DOM.counter.innerText = currentCount;
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        DOM.counter.innerText = "15K+"; // Mengunci nilai akhir sempurna
+                    }
+                };
+                requestAnimationFrame(step);
+            };
+
+            return {
+                boot: () => {
+                    initScrollEvent();
+                    initCounterAnimation();
+                }
+            };
+        })();
+
+        // Booting aplikasi saat dokumen siap
+        document.addEventListener('DOMContentLoaded', UniversityPortal.boot);
+    </script>
+
+</body>
+</html>

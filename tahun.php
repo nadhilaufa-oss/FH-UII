@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sejarah 1948 | FH UII</title>
+    <link rel="icon" type="image/img" href="logo.png.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. BRANDING TOKENS (Luxury Edition) */
+        :root {
+            --uii-blue: #0B3C82;       
+            --uii-blue-dark: #051A39;  
+            --uii-gold: #FFD100;       
+            --uii-gold-glow: rgba(255, 209, 0, 0.3);
+            --bg-slate: #0F172A;       /* Gelap Mewah (Slate 900) */
+            --bg-card: #1E293B;        /* Slate 800 */
+            --text-light: #F8FAFC;     
+            --text-muted: #94A3B8;     
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. BASE RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-slate);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* 3. HERO IMERSIF CINEMATIC */
+        .hero-premium {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 24px;
+            background: radial-gradient(circle at center, rgba(11, 60, 130, 0.4) 0%, var(--uii-blue-dark) 100%);
+            position: relative;
+            border-bottom: 1px solid rgba(255, 209, 0, 0.15);
+        }
+        
+        /* Huruf Seri Klasik Romawi/Sastra Kuno untuk Tahun */
+        .giant-year {
+            font-family: 'Cinzel', serif;
+            font-size: 7.5rem;
+            font-weight: 800;
+            color: transparent;
+            background: linear-gradient(180deg, var(--uii-gold) 30%, #cca800 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 20px var(--uii-gold-glow));
+            animation: zoomFade 1.2s ease-out forward;
+        }
+        
+        .hero-title-sub {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            max-width: 700px;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+        
+        .hero-divider {
+            width: 80px;
+            height: 3px;
+            background: var(--uii-gold);
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+
+        /* 4. LAYOUT GRID EDITORIAL (MAJALAH MODERN) */
+        .magazine-layout {
+            max-width: 1150px;
+            margin: 60px auto 100px auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+        }
+
+        /* Sisi Kiri: Manuskrip Narasi */
+        .manuscript-card {
+            background: linear-gradient(145deg, var(--bg-card), rgba(30, 41, 59, 0.7));
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .dropcap {
+            font-family: 'Cinzel', serif;
+            float: left;
+            font-size: 4.2rem;
+            line-height: 0.8;
+            padding-right: 12px;
+            padding-top: 4px;
+            color: var(--uii-gold);
+            font-weight: 800;
+        }
+        
+        .lead-text {
+            font-size: 1.2rem;
+            color: #E2E8F0;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .paragraph-classic {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 1.02rem;
+            text-align: justify;
+        }
+
+        /* Sisi Kanan: Kapsul Linimasa Anggun */
+        .interactive-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .timeline-box {
+            background: rgba(30, 41, 59, 0.4);
+            border-left: 4px solid rgba(255, 209, 0, 0.3);
+            padding: 30px;
+            border-radius: 0 20px 20px 0;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        
+        .timeline-box.active-scroll {
+            opacity: 1;
+            transform: translateX(0);
+            border-left-color: var(--uii-gold);
+            background: var(--bg-card);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .box-year {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--uii-gold);
+        }
+        
+        .box-tag {
+            font-size: 0.75rem;
+            background: rgba(11, 60, 130, 0.5);
+            color: #93C5FD;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid rgba(147, 197, 253, 0.2);
+        }
+
+        /* 5. LUXURY BACK NAVIGATION BUTTON */
+        .footer-action {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn-luxury-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: 2px solid var(--uii-gold);
+            box-shadow: 0 0 15px var(--uii-gold-glow);
+            transition: var(--transition);
+            letter-spacing: 0.05em;
+        }
+        
+        .btn-luxury-back:hover {
+            background: var(--uii-gold);
+            color: var(--uii-blue-dark);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 209, 0, 0.4);
+        }
+
+        /* ANIMATION */
+        @keyframes zoomFade {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 968px) {
+            .magazine-layout { grid-template-columns: 1fr; gap: 40px; }
+            .giant-year { font-size: 5.5rem; }
+            .hero-title-sub { font-size: 1.4rem; }
+            .manuscript-card { padding: 35px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-premium">
+        <div class="giant-year">1948</div>
+        <h1 class="hero-title-sub">Fajar Historis & Mahkota Hukum Indonesia</h1>
+        <div class="hero-divider"></div>
+        <p style="color: var(--text-muted); max-width: 550px; font-weight: 300;">Mengulas akar historis pendirian salah satu tonggak utama pendidikan hukum nasional tinggi di tanah air.</p>
+    </header>
+
+    <main class="magazine-layout">
+        
+        <article class="manuscript-card">
+            <p class="lead-text"><span class="dropcap">D</span>idirikan di tengah kancah perjuangan mempertahankan kemerdekaan Republik Indonesia, Fakultas Hukum UII resmi berdiri kokoh menantang zaman pada tahun 1948 di Yogyakarta.</p>
+            
+            <p class="paragraph-classic">Langkah besar ini diprakarsai oleh para tokoh nasional ternama, fakar bangsa, serta ulama intelektual yang sadar penuh akan mutlaknya eksistensi fakar yuridis pribumi. Mereka bercita-cita membangun fondasi hukum nasional yang tidak sekadar berlandaskan nilai nasionalisme, tetapi juga disinari oleh moral spiritual keislaman universal.</p>
+            
+            <p class="paragraph-classic">Sejak ketukan palu pertama perkuliahan di tahun 1948, institusi ini secara konsisten bertransformasi menjadi kawah candradimuka penegak keadilan. Dari koridor kampus inilah, lahir generasi emas praktisi tangguh mulai dari Hakim Agung, negarawan, advokat andal, hingga cendekiawan terkemuka yang berkontribusi aktif mewarnai dinamika hukum di Indonesia.</p>
+        </article>
+
+        <section class="interactive-timeline" id="timelineContainer">
+            </section>
+
+        <div class="footer-action">
+            <a href="beranda.php" class="btn-back btn-luxury-back">
+                KEMBALI
+            </a>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05);">
+        <p>&copy; 2026 Universitas Islam Indonesia. Eksplorasi Khazanah Sejarah Agung.</p>
+    </footer>
+
+    <script>
+        // Array Data Sejarah Jurnalistik
+        const dataSejarah = [
+            { tahun: "1945", tag: "Inisiasi", detail: "STI (Sekolah Tinggi Islam) didirikan di Jakarta sebagai fondasi awal berdirinya universitas nasional." },
+            { tahun: "1948", tag: "Epos Sejarah", detail: "Fakultas Hukum UII resmi dibuka di Yogyakarta, memulai debut mencetak kader yuridis berintegritas." },
+            { tahun: "1970", tag: "Ekspansi", detail: "Pelopor pengenalan laboratorium hukum klinis operasional yang progresif di Indonesia." },
+            { tahun: "2026", tag: "Masa Kejayaan", detail: "Menjaga Akreditasi UNGGUL mutlak dengan kontribusi lebih dari 15.000 alumni penegak keadilan." }
+        ];
+
+        const container = document.getElementById('timelineContainer');
+
+        // Render Kapsul Sejarah secara Dinamis
+        dataSejarah.forEach(item => {
+            const box = document.createElement('div');
+            box.className = 'timeline-box';
+            box.innerHTML = `
+                <div class="box-header">
+                    <span class="box-year">${item.tahun}</span>
+                    <span class="box-tag">${item.tag}</span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0; line-height: 1.6;">${item.detail}</p>
+            `;
+            container.appendChild(box);
+        });
+
+        // Trigger Efek Animasi Meluncur (Slide In) dari Kanan Saat Layar di-Scroll
+        const boxes = document.querySelectorAll('.timeline-box');
+        const revealOnScroll = () => {
+            const triggerZone = window.innerHeight * 0.85;
+            boxes.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                if(boxTop < triggerZone) {
+                    box.classList.add('active-scroll');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Jalankan fungsi sekali saat pertama dimuat
+        document.addEventListener("DOMContentLoaded", revealOnScroll);
+    </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<?php
+$pageTitle = "WEB DEVELOPER | FH UII";
+// Anda bisa mengubah data di bawah ini sesuai profil asli Anda
+$nama = "Nadhil Aufa"; 
+$nim = "22252";
+$peran = "Web Developer / Siswa SMK N 2 Pengasih";
+$email = "nadhilaufa@gmail.com";
+$keahlian = ["HTML5 & CSS3", "PHP & MySQL", "Linux Administration (WSL)", "UI/UX Design"];
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+
+    <link rel="icon" type="image/png" href="logo.png.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. CORE DESIGN SYSTEM (Konsisten dengan Warna Utama Anda)
+           ========================================================================== */
+        :root {
+            --uii-navy-dark: #041530;   /* Warna latar belakang gelap khas */
+            --uii-navy-light: #0b264f;  /* Warna card / container kontras */
+            --uii-gold: #FFD100;        /* Aksentuasi Emas UII */
+            --text-main: #FFFFFF;
+            --text-muted: #a0aec0;
+            --transition-smooth: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--uii-navy-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* ==========================================================================
+           2. BIODATA CARD CONTAINER (Simpel & Elegan)
+           ========================================================================== */
+        .biodata-container {
+            background-color: var(--uii-navy-light);
+            width: 100%;
+            max-width: 550px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 209, 0, 0.2); /* Border emas tipis transparan */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiasan Garis Emas Atas */
+        .biodata-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--uii-gold);
+        }
+
+        /* Avatar / Foto Profil Bundar Elegan */
+        .avatar-box {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--uii-gold), #b39200);
+            border-radius: 50%;
+            margin: 0 auto 24px auto;
+            padding: 5px;            /* Memberikan space 5px untuk efek border lingkar emas di luar foto */
+            box-shadow: 0 8px 20px rgba(255, 209, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;        /* Memastikan tidak ada bagian foto kotak yang bocor keluar */
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .role-tag {
+            font-size: 0.9rem;
+            color: var(--uii-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        /* Detail Informasi Grid */
+        .info-grid {
+            text-align: left;
+            background: rgba(4, 21, 48, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Badges Keahlian / Skill Tags */
+        .skills-section {
+            text-align: left;
+            margin-bottom: 35px;
+        }
+
+        .skills-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-badge {
+            background: rgba(255, 209, 0, 0.1);
+            color: var(--uii-gold);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 209, 0, 0.2);
+        }
+
+        /* Tombol Kembali Kembali Ke Beranda Profil */
+        .btn-kembali {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: transparent;
+            color: var(--uii-gold);
+            border: 2px solid var(--uii-gold);
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-kembali:hover {
+            background-color: var(--uii-gold);
+            color: var(--uii-navy-dark);
+            box-shadow: 0 8px 20px rgba(255, 209, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Pengatur Gambar di Dalam Lingkaran Kuning */
+           .avatar-img {
+            width: 100%;             /* Mengisi penuh lebar lingkaran */
+            height: 100%;            /* Mengisi penuh tinggi lingkaran */
+            object-fit: cover;       /* Memotong bagian foto secara proporsional agar tidak melar/gepeng */
+            border-radius: 50%;      /* Memotong sudut foto menjadi bulat sempurna */
+        }
+
+        /* Modifikasi opsional pada avatar-box agar posisi konten selalu di tengah */
+           .avatar-box {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           background: linear-gradient(135deg, var(--uii-gold), #b39200);
+           border-radius: 50%;
+           margin: 0 auto 24px auto;
+           box-shadow: 0 8px 20px rgba(255, 209, 0, 0.2);
+ }
+
+    </style>
+</head>
+<body>
+
+    <div class="biodata-container">
+        <div class="avatar-box">
+             <img src="nadhil.jpeg" alt="foto nadhil" class="avatar-img" onerror="this.src='logo.png'"> 
+        </div>
+        
+        <h1><?php echo $nama; ?></h1>
+        <div class="role-tag"><?php echo $peran; ?></div>
+        
+        <div class="info-grid">
+            <div class="info-row">
+                <span class="info-label">Nomor Induk Siswa (NIS)</span>
+                <span class="info-value"><?php echo $nim; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Sekolah</span>
+                <span class="info-value">SMK N 2 Pengasih</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Kontak Email</span>
+                <span class="info-value"><?php echo $email; ?></span>
+            </div>
+        </div>
+
+        <div class="skills-section">
+            <div class="skills-title">Keahlian Pengembangan Web</div>
+            <div class="skills-wrapper">
+                <?php foreach($keahlian as $skill): ?>
+                    <span class="skill-badge"><?php echo $skill; ?></span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <a href="beranda.php" class="btn-kembali">KEMBALI</a>
+    </div>
+
+</body>
+</html>

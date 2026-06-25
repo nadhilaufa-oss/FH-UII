@@ -1,0 +1,430 @@
+<?php
+/**
+ * Official Accreditation Statement - Faculty of Law Architecture
+ * Executive High-Fidelity Professional Edition (Academic & Corporate Standards)
+ */
+$pageTitle = "Akreditasi A | FH UII";
+$university = "Universitas Islam Indonesia";
+$fakultas = "Fakultas Hukum";
+$skNomor = "SK BAN-PT No. 4921/SK/BAN-PT/Ak-PPJ/M/VIII/2026";
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+
+    <link rel="icon" type="image/img" href="logo.png.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. INSTITUTIONAL COLOR PALETTE & TOKENS
+           ========================================================================== */
+        :root {
+            --uii-navy-primary: #041530;  /* Deep Institutional Navy */
+            --uii-navy-dark: #020b1a;
+            --uii-gold: #FFD100;          /* Pure Gold Accent */
+            --uii-gold-deep: #DCA600;
+            --bg-neutral: #f4f6f9;        /* Subtle Premium Gray */
+            --border-color: #cbd5e1;
+            --text-primary: #0f172a;      /* Slate Dark */
+            --text-secondary: #475569;    /* Executive Muted */
+            --font-editorial: 'EB Garamond', sans-serif;
+            --font-heritage: 'Inter', serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-editorial);
+            background-color: var(--bg-neutral);
+            color: var(--text-primary);
+            line-height: 1.85;
+            overflow-x: hidden;
+            padding-top: 100px;
+        }
+
+        /* ==========================================================================
+           2. PROFESSIONAL TOP NAVIGATION PANEL
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 24px 6%;          
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--uii-navy-primary);       
+            border-bottom: 4px solid var(--uii-gold);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo-vector {
+            height: 44px;
+            width: auto;
+        }
+
+        .brand-typography {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .brand-typography .sub-dept {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;             /* Tebal kokoh seperti di foto */
+            font-size: 0.75rem;           /* Ukuran proporsional lebih kecil */
+            text-transform: uppercase;    /* Wajib huruf kapital semua */
+            letter-spacing: 4px;        /* Memberikan jarak renggang yang elegan */
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+       .brand-typography .main-title {
+           font-family: 'Outfit', sans-serif;
+           font-weight: 800;             /* Tebal kokoh seperti di foto */
+           font-size: 1 rem;           /* Ukuran proporsional lebih kecil */
+           text-transform: uppercase;    /* Wajib huruf kapital semua */
+           color: #FFD100;               /* Warna emas murni khas UII */
+           letter-spacing: 0.3px;        /* Memberikan jarak renggang yang elegan */
+           line-height: 1.2;
+           margin-top: 2px;
+        }
+
+        .btn-portal-node {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-portal-node:hover {
+            border-color: var(--uii-gold);
+            color: var(--uii-gold);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* ==========================================================================
+           3. MASTHEAD / DOCUMENT HEADER SYSTEM
+           ========================================================================== */
+        .document-masthead {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 60px 6%;
+            text-align: center;
+        }
+
+        .masthead-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .document-tagline {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--uii-gold-deep);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .document-main-title {
+            font-family: var(--font-heritage);
+            font-size: 2.6rem;
+            color: var(--uii-navy-primary);
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .document-main-title { font-size: 1.9rem; }
+        }
+
+        /* ==========================================================================
+           4. CLASSIC REPORT ARCHITECTURE (COLUMNS & DATA TILES)
+           ========================================================================== */
+        .executive-content-container {
+            max-width: 1240px;
+            margin: 40px auto 100px auto;
+            padding: 0 4%;
+            display: grid;
+            grid-template-columns: 0.85fr 2.15fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .executive-content-container { grid-template-columns: 1fr; }
+        }
+
+        /* Left Sidebar: Official Badge Display */
+        .badge-status-panel {
+            background: var(--uii-navy-primary);
+            color: #ffffff;
+            padding: 50px 30px;
+            text-align: center;
+            border-top: 6px solid var(--uii-gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .accreditation-grade-char {
+            font-family: var(--font-heritage);
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--uii-gold);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .accreditation-status-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 15px;
+            width: 80%;
+        }
+
+        /* Right Content Area: Editorial Rows */
+        .report-editorial-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .editorial-lead-paragraph {
+            background: #ffffff;
+            padding: 35px;
+            border-left: 4px solid var(--uii-navy-primary);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.01);
+        }
+
+        /* Executive Matrix Rows (Formal Alternative to Bento Boxes) */
+        .matrix-row-item {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            transition: var(--transition-smooth);
+        }
+
+        /* EFEK INTERAKTIF REPRODUKSI: Saat dihover, border kiri menebal & elemen bertransisi ke warna gold */
+        .matrix-row-item:hover {
+            border-color: var(--uii-gold-deep);
+            background-color: #fffdf2; /* Soft Gold Tint */
+            transform: translateX(4px);
+            box-shadow: 0 10px 25px rgba(220, 166, 0, 0.08);
+        }
+
+        /* Indikator Angka Index Klasik Sebagai Ganti Emojis */
+        .matrix-index-num {
+            font-family: var(--font-heritage);
+            font-size: 1.4rem;
+            color: var(--uii-navy-primary);
+            font-weight: 700;
+            border-bottom: 2px solid var(--uii-gold);
+            line-height: 1;
+            padding-bottom: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        .matrix-row-item:hover .matrix-index-num {
+            color: var(--uii-gold-deep);
+            border-bottom-color: var(--uii-navy-primary);
+        }
+
+        .matrix-core-body {
+            flex: 1;
+        }
+
+        .matrix-node-title {
+            font-size: 1.25rem;
+            color: var(--uii-navy-primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .matrix-node-desc {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        /* ==========================================================================
+           5. SYSTEM STATUTORY FOOTER
+           ========================================================================== */
+        .statutory-decree-footer {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .decree-meta-node .title-lbl {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 1.5px;
+        }
+
+        .decree-meta-node .value-lbl {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--uii-navy-primary);
+        }
+
+        .btn-action-back {
+            background: var(--uii-navy-primary);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--uii-navy-primary);
+        }
+
+        .btn-action-back:hover {
+            background: transparent;
+            color: var(--uii-navy-primary);
+        }
+
+        @media (max-width: 768px) {
+            .statutory-decree-footer { flex-direction: column; text-align: center; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="globalInstitutionalHeader">
+        <div class="brand-cluster">
+            <img src="logo.png.png" alt="Logo UII" class="brand-logo-vector" onerror="this.src='logo.png'">
+            <div class="brand-typography">
+                <span class="sub-dept">FACULTY OF LAW</span>
+                <span class="main-title">UNIVERSITAS ISLAM INDONESIA</span>
+            </div>
+        </div>
+        <a href="profil.php" class="btn-portal-node">Institutional Hub</a>
+    </nav>
+
+    <header class="document-masthead">
+        <div class="masthead-wrapper">
+            <span class="document-tagline">Pernyataan Mutu Akademik</span>
+            <h1 class="document-main-title">Deklarasi Pencapaian Standar Akreditasi Unggul (A) Nasional</h1>
+        </div>
+    </header>
+
+    <main class="executive-content-container">
+        
+        <aside class="badge-status-panel">
+            <div class="accreditation-grade-char">A</div>
+            <div class="accreditation-status-label">Peringkat Unggul</div>
+        </aside>
+
+        <section class="report-editorial-grid">
+            
+            <div class="editorial-lead-paragraph">
+                Fakultas Hukum Universitas Islam Indonesia (FH UII) secara berkesinambungan mempertahankan peringkat <strong>Akreditasi A (Unggul)</strong> dari Badan Akreditasi Nasional Perguruan Tinggi (BAN-PT). Pengakuan yurisdiksional ini menegaskan dominasi mutu FH UII dalam menyelenggarakan pendidikan tinggi hukum yang berintegritas, progresif, dan berskala transnasional.
+            </div>
+
+            <div class="matrix-row-item">
+                <div class="matrix-index-num">I</div>
+                <div class="matrix-core-body">
+                    <h3 class="matrix-node-title">Kualifikasi Dewan Pengajar Senior</h3>
+                    <p class="matrix-node-desc">Komposisi akademisi diperkuat oleh lebih dari 85% staf pengajar berkualifikasi Doktor (Ph.D) serta Guru Besar (Profesor) aktif yang merupakan lulusan dari berbagai himpunan universitas terkemuka dunia.</p>
+                </div>
+            </div>
+
+            <div class="matrix-row-item">
+                <div class="matrix-index-num">II</div>
+                <div class="matrix-core-body">
+                    <h3 class="matrix-node-title">Fasilitas Yudisial Terintegrasi</h3>
+                    <p class="matrix-node-desc">Penyediaan infrastruktur penunjang kompetensi klinis berupa ruang peradilan semu (Moot Court) berstandar mahkamah, ruang mediasi berbasis teknologi digital, serta perpustakaan dokumentasi hukum terlengkap.</p>
+                </div>
+            </div>
+
+            <div class="matrix-row-item">
+                <div class="matrix-index-num">III</div>
+                <div class="matrix-core-body">
+                    <h3 class="matrix-node-title">Kurikulum Hukum Transnasional & Adaptif</h3>
+                    <p class="matrix-node-desc">Arsitektur kurikulum didesain secara adaptif merelevansi era hukum siber, transaksi bisnis lintas batas, serta integrasi nilai etika keislaman luhur untuk mencetak praktisi hukum yang tangguh.</p>
+                </div>
+            </div>
+
+            <div class="matrix-row-item">
+                <div class="matrix-index-num">IV</div>
+                <div class="matrix-core-body">
+                    <h3 class="matrix-node-title">Akselerasi Karir & Daya Serap Pasar</h3>
+                    <p class="matrix-node-desc">Indikator kinerja utama menunjukkan waktu tunggu lulusan untuk memperoleh posisi karir yudisial, corporate legal, maupun sektor publik pertama rata-rata berada di bawah kurun waktu tiga bulan pasca-kelulusan.</p>
+                </div>
+            </div>
+
+            <footer class="statutory-decree-footer">
+                <div class="decree-meta-node">
+                    <div class="title-lbl">Legalitas Ketetapan BAN-PT</div>
+                    <div class="value-lbl"><?php echo $skNomor; ?></div>
+                </div>
+                <a href="beranda.php" class="btn-action-back">KEMBALI</a>
+            </footer>
+
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('globalInstitutionalHeader');
+            
+            // Efek minimalis menyusutkan padding navbar saat scroll halaman dilakukan
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.style.padding = '14px 6%';
+                } else {
+                    header.style.padding = '24px 6%';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

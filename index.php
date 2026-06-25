@@ -1,0 +1,291 @@
+<?php
+session_start();
+
+// Database lokal user yang sah
+const USER_DATABASE = [
+    "101010" => "nadhil",
+    "202020" => "davin",
+    "303030" => "finza"
+];
+
+$errorMessage = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $inputNumber = trim($_POST['user-number']);
+    $inputName = strtolower(trim($_POST['user-name']));
+    $selectedStatus = $_POST['status'];
+    $todayDate = date("Y-m-d");
+    date_default_timezone_set("Asia/Yohyakarta");
+    $timeString = date("H.i") . " WIB";
+
+    if (!isset(USER_DATABASE[$inputNumber])) {
+        $errorMessage = "Akses Ditolak: Nomor Identitas tidak terdaftar!";
+    } 
+    elseif (USER_DATABASE[$inputNumber] !== $inputName) {
+        $errorMessage = "Akses Ditolak: Kombinasi Nomor dan Nama tidak sesuai!";
+    } 
+    else {
+        if (!isset($_SESSION['attendance_records'])) {
+            $_SESSION['attendance_records'] = [];
+        }
+
+        $isAlreadyCheckedIn = false;
+        foreach ($_SESSION['attendance_records'] as $record) {
+            if ($record['number'] === $inputNumber && $record['date'] === $todayDate) {
+                $isAlreadyCheckedIn = true;
+                break;
+            }
+        }
+
+        if ($isAlreadyCheckedIn) {
+            $errorMessage = "Gagal: " . strtoupper($inputName) . " ($inputNumber) sudah absen hari ini!";
+        } else {
+            $_SESSION['attendance_records'][] = [
+                'date' => $todayDate,
+                'time' => $timeString,
+                'number' => $inputNumber,
+                'name' => strtoupper(USER_DATABASE[$inputNumber]),
+                'status' => $selectedStatus
+            ];
+            
+            header("Location: log.php");
+            exit();
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABSENSI MAHASISWA | FH UII</title>
+    <link rel="icon" type="image/img" href="logo.png.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Warna Institusi Utama (Sama untuk Sidebar & Panel Input) */
+            --uii-blue-darker: #0B335C; 
+            --uii-gold: #FFCC00;         
+            --bg-light-clean: #F1F5F9;   
+            --text-dark: #0F172A;        
+            --text-muted: #94A3B8;       
+            --text-muted-panel: #CBD5E1; /* Warna teks label di dalam panel biru agar lebih terbaca */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-light-clean); 
+            color: var(--text-dark); 
+            display: flex; 
+            min-height: 100vh;
+        }
+        
+        .app-container { display: flex; width: 100%; }
+        
+        /* Sidebar Utama */
+        .sidebar {
+            width: 290px;
+            background-color: var(--uii-blue-darker);
+            box-shadow: 4px 0 25px rgba(11, 51, 92, 0.15);
+            padding: 35px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand-section { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            padding-bottom: 20px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12); 
+        }
+        .brand-logo-img { width: 44px; height: auto; object-fit: contain; }
+        .brand-title h2 { font-size: 7px; font-weight: 400; letter-spacing: 4px; color: #ffffff; text-transform: uppercase; }
+        .brand-title p { font-size: 11px; color: var(--uii-gold); font-weight: 900; letter-spacing: 0.3px; }
+
+        /* Navigasi Kiri Bawah */
+        .sidebar-footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-beranda:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .btn-log {
+            border-color: var(--uii-gold);
+            color: var(--uii-gold);
+        }
+        
+        .btn-log:hover {
+            background: var(--uii-gold);
+            color: var(--uii-blue-darker);
+            transform: translateX(4px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.25);
+        }
+
+        /* Area Kerja Utama */
+        .main-wrapper { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
+        
+        /* Panel Input Kehadiran - Disamakan Warna dengan Bar Kiri */
+        .interactive-form-panel { 
+            background-color: var(--uii-blue-darker); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 24px; 
+            padding: 45px; 
+            width: 100%; 
+            max-width: 500px; 
+            box-shadow: 0 30px 60px -12px rgba(11, 51, 92, 0.25); 
+        }
+        
+        .panel-heading { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 32px; border-left: 4px solid var(--uii-gold); padding-left: 14px; }
+        
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted-panel); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+        
+        /* Kolom Input dengan Kontras yang Seimbang di Dalam Panel */
+        .form-input { 
+            width: 100%; 
+            background-color: rgba(0, 0, 0, 0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 12px; 
+            padding: 16px; 
+            color: #ffffff; 
+            font-size: 14px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+        }
+        .form-input:focus { outline: none; border-color: var(--uii-gold); background-color: rgba(0, 0, 0, 0.3); box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.15); }
+
+        /* Pilihan Grid Status */
+        .status-selector-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .status-option { position: relative; }
+        .status-option input[type="radio"] { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; z-index: 2; }
+        
+        .status-tile { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            background-color: rgba(0, 0, 0, 0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 12px; 
+            font-size: 13px; 
+            font-weight: 700; 
+            color: var(--text-muted-panel); 
+            transition: all 0.2s ease; 
+        }
+        
+        input[value="Hadir"]:checked + .status-tile { background: rgba(16, 185, 129, 0.25); border-color: #10B981; color: #34D399; }
+        input[value="Izin"]:checked + .status-tile { background: rgba(59, 131, 246, 0.25); border-color: #3B82F6; color: #60A5FA; }
+        input[value="Sakit"]:checked + .status-tile { background: rgba(245, 158, 11, 0.25); border-color: #F59E0B; color: #FBBF24; }
+        input[value="Alpha"]:checked + .status-tile { background: rgba(239, 68, 68, 0.25); border-color: #EF4444; color: #FCA5A5; }
+
+        /* Tombol Kirim Warna Kuning Emas */
+        .submit-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, var(--uii-gold) 0%, #E0B400 100%); 
+            color: var(--uii-blue-darker); 
+            border: none; 
+            border-radius: 12px; 
+            padding: 18px; 
+            font-size: 14px; 
+            font-weight: 800; 
+            letter-spacing: 0.5px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 20px; 
+        }
+        .submit-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.4); 
+        }
+        
+        .error-toast { background-color: #7F1D1D; color: #FCA5A5; padding: 14px 18px; border-radius: 12px; font-size: 13px; font-weight: 700; margin-bottom: 24px; border: 1px solid #991B1B; border-left: 4px solid #EF4444; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="top-content">
+                <div class="brand-section">
+                    <img src="logo.png.png" alt="Logo UII" class="brand-logo-img">
+                    <div class="brand-title">
+                        <h2>FACULTY OF LAW</h2>
+                        <p>UNIVERSITAS ISLAM INDONESIA</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUTTONS NAVIGATION -->
+            <div class="sidebar-footer-nav">
+                <a href="beranda.php" class="nav-btn btn-beranda">
+                    BERANDA <span>&rarr;</span>
+                </a>
+                <a href="log.php" class="nav-btn btn-log">
+                    LOG PRESENSI <span>&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- WORKSPACE AREA -->
+        <div class="main-wrapper">
+            <!-- PANEL INPUT KEHADIRAN (WARNA SAMA DENGAN SIDEBAR) -->
+            <div class="interactive-form-panel">
+                <div class="panel-heading">Input Kehadiran</div>
+                
+                <?php if(!empty($errorMessage)): ?>
+                    <div class="error-toast"><?= $errorMessage; ?></div>
+                <?php endif; ?>
+
+                <form action="index.php" method="POST">
+                    <div class="form-group">
+                        <label>Nomor Identitas Mahasiswa (NIM)</label>
+                        <input type="text" name="user-number" class="form-input" placeholder="Nomor Identitas" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Mahasiswa</label>
+                        <input type="text" name="user-name" class="form-input" placeholder="Nama Lengkap" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <div class="status-selector-grid">
+                            <div class="status-option"><input type="radio" name="status" value="Hadir" checked><div class="status-tile">Hadir</div></div>
+                            <div class="status-option"><input type="radio" name="status" value="Izin"><div class="status-tile">Izin</div></div>
+                            <div class="status-option"><input type="radio" name="status" value="Sakit"><div class="status-tile">Sakit</div></div>
+                            <div class="status-option"><input type="radio" name="status" value="Alpha"><div class="status-tile">Alpha</div></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">KIRIM</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

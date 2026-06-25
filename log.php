@@ -1,0 +1,220 @@
+<?php
+session_start();
+
+$records = isset($_SESSION['attendance_records']) ? array_reverse($_SESSION['attendance_records']) : [];
+
+// Hitung total akumulasi tiap parameter status
+$stats = ['Hadir' => 0, 'Izin' => 0, 'Sakit' => 0, 'Alpha' => 0];
+foreach ($records as $r) {
+    if (isset($stats[$r['status']])) {
+        $stats[$r['status']]++;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG PRESENSI MAHASISWA |FH UII</title>
+    <link rel="icon" href="logo.png.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Penyelarasan Warna Sama Persis dengan index.php */
+            --uii-blue-darker: #0B335C; 
+            --uii-gold: #FFCC00;         
+            --bg-light-clean: #F1F5F9;   
+            --text-dark: #0F172A;        
+            --text-muted: #94A3B8;       
+            --text-muted-panel: #CBD5E1; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-light-clean); /* Background Polos Tanpa Titik */
+            color: var(--text-dark); 
+            display: flex; 
+            min-height: 100vh;
+        }
+        
+        .app-container { display: flex; width: 100%; }
+        
+        /* Sidebar Utama */
+        .sidebar {
+            width: 290px;
+            background-color: var(--uii-blue-darker);
+            box-shadow: 4px 0 25px rgba(11, 51, 92, 0.15);
+            padding: 35px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand-section { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            padding-bottom: 20px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12); 
+        }
+        .brand-logo-img { width: 44px; height: auto; object-fit: contain; }
+        .brand-title h2 { font-size: 14px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; text-transform: uppercase; }
+        .brand-title p { font-size: 11px; color: var(--uii-gold); font-weight: 700; letter-spacing: 0.3px; }
+
+        /* Navigasi Kiri Bawah */
+        .sidebar-footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-beranda:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .btn-log {
+            border-color: var(--uii-gold);
+            color: var(--uii-gold);
+        }
+        
+        .btn-log:hover {
+            background: var(--uii-gold);
+            color: var(--uii-blue-darker);
+            transform: translateX(4px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.25);
+        }
+
+        /* Area Kerja Utama */
+        .main-wrapper { flex-grow: 1; padding: 40px; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+        
+        /* 4 Box Indikator Atas (Warna disesuaikan dengan Panel) */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .metric-card { 
+            background-color: var(--uii-blue-darker); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 16px; 
+            padding: 24px; 
+            position: relative; 
+            box-shadow: 0 15px 30px -5px rgba(11, 51, 92, 0.1); 
+        }
+        .metric-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 16px 0 0 16px; }
+        
+        .m-hadir::before { background-color: #10b981; }
+        .m-izin::before { background-color: #3b82f6; }
+        .m-sakit::before { background-color: #f59e0b; }
+        .m-alpha::before { background-color: #ef4444; }
+
+        .metric-label { font-size: 12px; font-weight: 700; color: var(--text-muted-panel); text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-value { font-size: 36px; font-weight: 800; margin-top: 8px; color: #ffffff; }
+
+        /* Panel Tabel Utama */
+        .table-panel { 
+            background-color: var(--uii-blue-darker); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 24px; 
+            padding: 35px; 
+            box-shadow: 0 30px 60px -12px rgba(11, 51, 92, 0.25); 
+        }
+        .panel-heading { font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 25px; border-left: 4px solid var(--uii-gold); padding-left: 14px; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 16px 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted-panel); border-bottom: 2px solid rgba(255, 255, 255, 0.12); letter-spacing: 0.5px; }
+        td { padding: 18px 20px; font-size: 14px; color: #ffffff; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        /* Badges Status */
+        .status-badge { display: inline-flex; padding: 5px 14px; border-radius: 30px; font-size: 12px; font-weight: 700; }
+        .b-hadir { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .b-izin { background: rgba(59, 131, 246, 0.2); color: #60A5FA; border: 1px solid rgba(59, 131, 246, 0.3); }
+        .b-sakit { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .b-alpha { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.3); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="top-content">
+                <div class="brand-section">
+                    <img src="logo.png.png" alt="Logo UII" class="brand-logo-img">
+                    <div class="brand-title">
+                        <h2>GATEKEEPER v2.0</h2>
+                        <p>Faculty of Law UII</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUTTONS NAVIGATION -->
+            <div class="sidebar-footer-nav">
+                <a href="beranda.php" class="nav-btn btn-beranda">
+                    BERANDA <span>&rarr;</span>
+                </a>
+                <a href="index.php" class="nav-btn btn-log">
+                    INPUT PRESENSI <span>&rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- WORKSPACE AREA -->
+        <div class="main-wrapper">
+            <!-- 4 INDICATORS ROW -->
+            <div class="stats-row">
+                <div class="metric-card m-hadir"><span class="metric-label">Hadir</span><div class="metric-value"><?= $stats['Hadir']; ?></div></div>
+                <div class="metric-card m-izin"><span class="metric-label">Izin</span><div class="metric-value"><?= $stats['Izin']; ?></div></div>
+                <div class="metric-card m-sakit"><span class="metric-label">Sakit</span><div class="metric-value"><?= $stats['Sakit']; ?></div></div>
+                <div class="metric-card m-alpha"><span class="metric-label">Alpha</span><div class="metric-value"><?= $stats['Alpha']; ?></div></div>
+            </div>
+
+            <!-- LOG TABLE PANEL -->
+            <div class="table-panel">
+                <div class="panel-heading">Daftar Log Presensi Hari Ini</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Waktu Log</th>
+                            <th>Nomor</th>
+                            <th>Nama</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(empty($records)): ?>
+                            <tr><td colspan="4" style="text-align: center; color: var(--text-muted-panel); padding: 40px; font-weight: 600;">Belum ada log presensi tercatat hari ini.</td></tr>
+                        <?php else: ?>
+                            <?php foreach($records as $row): ?>
+                                <tr>
+                                    <td><?= $row['time']; ?></td>
+                                    <td><?= $row['number']; ?></td>
+                                    <td style="font-weight: 700; color: #ffffff;"><?= $row['name']; ?></td>
+                                    <td><span class="status-badge b-<?= strtolower($row['status']); ?>"><?= $row['status']; ?></span></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
