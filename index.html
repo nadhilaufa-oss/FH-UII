@@ -458,7 +458,7 @@ $fakultas = "Fakultas Hukum";
   <div class="sidebar-menu" id="sidebarMenu" style="padding-top: 50px !important;">
     <div style="display: flex; align-items: center; gap: 12px; padding: 10px 15px 15px 10px !important; width: 100%; box-sizing: border-box;">
         <img src="logo.png.png" alt="Logo" style="width: 40px; height: auto; object-fit: contain; flex-shrink: 0; margin-left: -5px;">
-        <a href="biodata.php" id="link-menu-profil" style="flex-grow: 1; margin: 0; display: flex; justify-content: space-between; align-items: center;">
+        <a href="biodata.html" id="link-menu-profil" style="flex-grow: 1; margin: 0; display: flex; justify-content: space-between; align-items: center;">
             DATA DIRI<span>&rarr;</span>
         </a>
     </div>
@@ -522,10 +522,10 @@ $fakultas = "Fakultas Hukum";
                 window.location.href = tujuan;
             }
 
-            document.getElementById('btn-logo-home').addEventListener('click', () => pindahHalaman('profil.php'));
-            document.getElementById('link-menu-profil').addEventListener('click', () => pindahHalaman('profil.php'));
-            document.getElementById('btn-buka-absen').addEventListener('click', () => pindahHalaman('sejarah.php'));
-            document.getElementById('link-menu-absen').addEventListener('click', () => pindahHalaman('index.php'));
+            document.getElementById('btn-logo-home').addEventListener('click', () => pindahHalaman('index.html'));
+            document.getElementById('link-menu-profil').addEventListener('click', () => pindahHalaman('index.html'));
+            document.getElementById('btn-buka-absen').addEventListener('click', () => pindahHalaman('sejarah.html'));
+            document.getElementById('link-menu-absen').addEventListener('click', () => pindahHalaman('absensi.html'));
 
             // 3. Detektor Scroll Navbar Efek Kaca (Glassmorphism)
             const navbar = document.getElementById('navbar');
@@ -581,13 +581,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // 3. Sistem Pengalihan Rute (Routing) sesuai permintaan Anda
             if (textValue === 'A') {
-                window.location.href = 'akreditasi.php';
+                window.location.href = 'akreditasi.html';
             } else if (textValue === '1948') {
-                window.location.href = 'tahun.php';
+                window.location.href = 'tahun.html';
             } else if (textValue === '6') {
-                window.location.href = 'prodi.php';
+                window.location.href = 'prodi.html';
             } else if (textValue === '15K+') {
-                window.location.href = 'alumni.php';
+                window.location.href = 'alumni.html';
             }
         });
     });
@@ -613,13 +613,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Jalur redirect sesuai instruksi Anda
             if (textValue === 'A') {
-                window.location.href = 'akreditasi.php';
+                window.location.href = 'akreditasi.html';
             } else if (textValue === '1948') {
-                window.location.href = 'tahun.php';
+                window.location.href = 'tahun.html';
             } else if (textValue === '6') {
-                window.location.href = 'prodi.php';
+                window.location.href = 'prodi.html';
             } else if (textValue === '15K+') {
-                window.location.href = 'alumni.php';
+                window.location.href = 'alumni.html';
             }
         });
     });
