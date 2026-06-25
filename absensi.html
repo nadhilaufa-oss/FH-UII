@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'status' => $selectedStatus
             ];
             
-            header("Location: log.php");
+            header("Location: log.html");
             exit();
         }
     }
@@ -245,10 +245,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!-- BUTTONS NAVIGATION -->
             <div class="sidebar-footer-nav">
-                <a href="beranda.php" class="nav-btn btn-beranda">
+                <a href="index.html" class="nav-btn btn-beranda">
                     BERANDA <span>&rarr;</span>
                 </a>
-                <a href="log.php" class="nav-btn btn-log">
+                <a href="log.html" class="nav-btn btn-log">
                     LOG PRESENSI <span>&rarr;</span>
                 </a>
             </div>
