@@ -28,13 +28,13 @@
             background-color: #ffffff;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        /* Sisi Kiri */
+        /* Sisi Kiri - Banner Navigasi */
         .sidebar {
             width: 30%;
-            background-color: #0d2c54;
+            background-color: #0d2c54; /* Navy UII */
             padding: 40px 25px;
             display: flex;
             flex-direction: column;
@@ -42,22 +42,42 @@
             color: white;
         }
 
+        /* Perbaikan Posisi Logo & Tulisan agar pas ke Tengah */
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* Membuat isi konten rata tengah secara horizontal */
+            text-align: center;   /* Membuat teks membungkus rata tengah */
+            width: 100%;
+        }
+
         .logo-section img {
-            max-width: 160px;
-            margin-bottom: 10px;
+            max-width: 140px;     /* Ukuran disamakan dengan absensi.html */
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .logo-section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #ffffff;
+            line-height: 1.5;
+            text-transform: uppercase;
         }
 
         .nav-buttons {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            width: 100%;
         }
 
         .nav-btn {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             color: white;
-            border: none;
-            padding: 12px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 20px;
             border-radius: 10px;
             text-align: left;
             text-decoration: none;
@@ -67,16 +87,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            letter-spacing: 0.5px;
         }
 
         .nav-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
         /* Sisi Kanan - Tabel Log */
         .log-section {
             width: 70%;
-            background-color: #113f67;
+            background-color: #113f67; /* Slate Blue Gelap */
             padding: 40px;
             color: white;
             display: flex;
@@ -92,7 +113,7 @@
 
         .log-section h2 {
             font-size: 24px;
-            border-left: 4px solid #f39c12;
+            border-left: 4px solid #f39c12; /* Aksen Gold */
             padding-left: 10px;
         }
 
@@ -170,11 +191,10 @@
 <body>
 
 <div class="container">
-    <!-- Kiri -->
     <div class="sidebar">
         <div class="logo-section">
             <img src="logo.png.png" alt="Logo UII" onerror="this.src='https://via.placeholder.com/150x50?text=FACULTY+OF+LAW'">
-            <h3 style="font-size: 13px; font-weight: 400; color: #cbd5e1; margin-top: 5px;">UNIVERSITAS ISLAM INDONESIA</h3>
+            <h3>Universitas Islam Indonesia</h3>
         </div>
         
         <div class="nav-buttons">
@@ -182,10 +202,9 @@
             <a href="absensi.html" class="nav-btn">FORM ABSENSI <span>→</span></a>
         </div>
         
-        <div style="font-size: 11px; color: #94a3b8;">© 2026 FH UII Gatekeeper</div>
+        <div style="font-size: 11px; color: #94a3b8; text-align: center; width: 100%;">© 2026 FH UII Gatekeeper</div>
     </div>
 
-    <!-- Kanan -->
     <div class="log-section">
         <div class="header-box">
             <h2>Log Riwayat Presensi</h2>
@@ -204,15 +223,13 @@
                     </tr>
                 </thead>
                 <tbody id="logTableBody">
-                    <!-- Data otomatis diisi oleh JavaScript -->
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    // Fungsi memuat riwayat dari LocalStorage ke tabel HTML
     function muatLog() {
         const tableBody = document.getElementById('logTableBody');
         const logPresensi = JSON.parse(localStorage.getItem('logPresensi')) || [];
@@ -224,7 +241,6 @@
 
         let htmlRows = "";
         logPresensi.forEach(item => {
-            // Tentukan warna badge berdasarkan status
             let badgeClass = "badge-hadir";
             if (item.status === "Izin") badgeClass = "badge-izin";
             if (item.status === "Sakit") badgeClass = "badge-sakit";
@@ -244,7 +260,6 @@
         tableBody.innerHTML = htmlRows;
     }
 
-    // Fungsi reset/clear data simulasi
     function hapusSemuaLog() {
         if(confirm("Apakah Anda yakin ingin menghapus semua riwayat presensi?")) {
             localStorage.removeItem('logPresensi');
@@ -252,7 +267,6 @@
         }
     }
 
-    // Jalankan fungsi otomatis saat halaman terbuka
     window.onload = muatLog;
 </script>
 </body>
