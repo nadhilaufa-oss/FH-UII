@@ -22,12 +22,12 @@
 
         .container {
             display: flex;
-            width: 900px;
-            height: 550px;
+            width: 950px;
+            height: 580px;
             background-color: #ffffff;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
         /* Sisi Kiri - Banner Navigasi */
@@ -41,29 +41,42 @@
             color: white;
         }
 
+        /* Perbaikan Posisi Logo & Tulisan agar pas ke Tengah */
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* Membuat isi konten rata tengah secara horizontal */
+            text-align: center;   /* Membuat teks membungkus rata tengah */
+            width: 100%;
+        }
+
         .logo-section img {
-            max-width: 180px;
-            margin-bottom: 10px;
+            max-width: 140px;     /* Ukuran logo disesuaikan proporsinya */
+            height: auto;
+            margin-bottom: 20px;
         }
 
         .logo-section h3 {
-            font-size: 14px;
-            font-weight: 400;
-            letter-spacing: 1px;
-            color: #d1d5db;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            color: #ffffff;
+            line-height: 1.5;
+            text-transform: uppercase;
         }
 
         .nav-buttons {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            width: 100%;
         }
 
         .nav-btn {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             color: white;
-            border: none;
-            padding: 12px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 20px;
             border-radius: 10px;
             text-align: left;
             text-decoration: none;
@@ -73,17 +86,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            letter-spacing: 0.5px;
         }
 
         .nav-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
         /* Sisi Kanan - Form Absen */
         .form-section {
             width: 60%;
             background-color: #113f67; /* Slate Blue Gelap */
-            padding: 40px;
+            padding: 45px;
             color: white;
             display: flex;
             flex-direction: column;
@@ -91,40 +105,42 @@
         }
 
         .form-section h2 {
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 26px;
+            margin-bottom: 6px;
             border-left: 4px solid #f39c12; /* Aksen Gold */
-            padding-left: 10px;
+            padding-left: 12px;
         }
 
         .form-section p {
-            font-size: 12px;
+            font-size: 13px;
             color: #cbd5e1;
             margin-bottom: 25px;
         }
 
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .input-group label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             margin-bottom: 8px;
             color: #94a3b8;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            font-weight: 600;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px 15px;
             background-color: #0b253a;
             border: 1px solid #1e293b;
             border-radius: 8px;
             color: white;
             font-size: 14px;
             outline: none;
+            transition: 0.2s;
         }
 
         .input-group input:focus {
@@ -135,15 +151,15 @@
         .status-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 10px;
         }
 
         .status-btn {
             background-color: #0b253a;
             border: 1px solid #1e293b;
             color: #94a3b8;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -156,11 +172,11 @@
             color: white;
         }
 
-        /* State ketika tombol opsi status dipilih */
         .status-btn.active {
-            background-color: #047857; /* Hijau Sukses Pas Diklik */
+            background-color: #1e3a5f; /* Tetap bertema gelap saat dipilih */
             color: white;
-            border-color: #047857;
+            border-color: #f39c12;
+            box-shadow: inset 0 0 5px rgba(243, 156, 18, 0.3);
         }
 
         .btn-submit {
@@ -168,7 +184,7 @@
             color: #0d2c54;
             border: none;
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 700;
@@ -176,33 +192,31 @@
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 15px;
         }
 
         .btn-submit:hover {
             background-color: #e67e22;
         }
 
-        /* Notifikasi sukses/gagal singkat */
         .alert {
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 13px;
             display: none;
+            font-weight: 500;
         }
-        .alert-success { background-color: #047857; color: white; }
-        .alert-danger { background-color: #b91c1c; color: white; }
+        .alert-danger { background-color: #b91c1c; color: white; border: 1px solid #991b1b; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Kiri -->
     <div class="sidebar">
         <div class="logo-section">
-            <!-- Sesuaikan dengan logo.png.png Anda -->
             <img src="logo.png.png" alt="Logo UII" onerror="this.src='https://via.placeholder.com/150x50?text=FACULTY+OF+LAW'">
-            <h3>UNIVERSITAS ISLAM INDONESIA</h3>
+            <h3>Universitas Islam Indonesia</h3>
         </div>
         
         <div class="nav-buttons">
@@ -210,15 +224,14 @@
             <a href="log.html" class="nav-btn">LOG PRESENSI <span>→</span></a>
         </div>
         
-        <div style="font-size: 11px; color: #94a3b8;">© 2026 FH UII Gatekeeper</div>
+        <div style="font-size: 11px; color: #94a3b8; text-align: center; width: 100%;">© 2026 FH UII Gatekeeper</div>
     </div>
 
-    <!-- Kanan -->
     <div class="form-section">
         <h2>Input Kehadiran</h2>
         <p>Silakan isi data kehadiran Anda dengan benar.</p>
 
-        <div id="alertBox" class="alert"></div>
+        <div id="alertBox" class="alert alert-danger"></div>
 
         <div class="input-group">
             <label>Nomor Identitas Mahasiswa (NIM)</label>
@@ -247,7 +260,6 @@
 <script>
     let selectedStatus = "";
 
-    // Fungsi memilih opsi kehadiran
     function selectStatus(btn, status) {
         const buttons = document.querySelectorAll('.status-btn');
         buttons.forEach(b => b.classList.remove('active'));
@@ -255,44 +267,34 @@
         selectedStatus = status;
     }
 
-    // Fungsi menyimpan absen simulasi (ke LocalStorage)
     function simpanAbsen() {
         const nim = document.getElementById('nimInput').value.trim();
         const nama = document.getElementById('namaInput').value.trim();
         const alertBox = document.getElementById('alertBox');
 
+        // Validasi jika ada form yang kosong
         if (!nim || !nama || !selectedStatus) {
-            alertBox.className = "alert alert-danger";
             alertBox.innerText = "Gagal: Harap isi semua kolom dan pilih keterangan!";
             alertBox.style.display = "block";
             return;
         }
 
-        // Ambil waktu asli saat ini
+        // Ambil waktu asli sistem saat ini
         const sekarang = new Date();
         const tanggal = sekarang.toISOString().split('T')[0];
         const jam = sekarang.toTimeString().split(' ')[0].substring(0, 5) + " WIB";
 
-        // Struktur data baru
         const dataBaru = { tanggal, jam, nim, nama, status: selectedStatus };
 
-        // Tarik data lama dari LocalStorage jika ada
+        // Tarik data lama dari LocalStorage
         let logPresensi = JSON.parse(localStorage.getItem('logPresensi')) || [];
-        logPresensi.unshift(dataBaru); // Masukkan di paling atas baris
+        logPresensi.unshift(dataBaru); // Tambahkan data baru di urutan teratas
 
-        // Simpan kembali
+        // Simpan kembali data ke memori local browser
         localStorage.setItem('logPresensi', JSON.stringify(logPresensi));
 
-        // Tampilkan pesan sukses
-        alertBox.className = "alert alert-success";
-        alertBox.innerText = `Sukses: Absensi ${nama.toUpperCase()} berhasil dikirim!`;
-        alertBox.style.display = "block";
-
-        // Reset form input
-        document.getElementById('nimInput').value = "";
-        document.getElementById('namaInput').value = "";
-        document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
-        selectedStatus = "";
+        // Setelah berhasil, langsung arahkan otomatis ke halaman log.html
+        window.location.href = "log.html";
     }
 </script>
 </body>
